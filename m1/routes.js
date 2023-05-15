@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const jogadorController = require('../controllers/jogadorController');
-const partidaController = require('../controllers/partidaController');
+const jogadorController = require('./controllers/jogadorController');
+const partidaController = require('./controllers/partidaController');
+const authController = require('./controllers/authController');
 
 // Rotas para jogadores
 router.get('/jogadores', jogadorController.listarJogadores);

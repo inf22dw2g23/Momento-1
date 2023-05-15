@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+//const router = express.Router();
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 const session = require('express-session');
