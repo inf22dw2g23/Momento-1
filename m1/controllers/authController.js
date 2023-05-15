@@ -1,5 +1,5 @@
 const express = require('express');
-//const router = express.Router();
+const router = express.Router();
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 const session = require('express-session');
@@ -30,7 +30,7 @@ router.post('/registro', async (req, res) => {
     const senhaCriptografada = await bcrypt.hash(senha, 10);
 
     // Salvar o usuário no banco de dados com a senha criptografada
-    const query = `INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)`;
+    const query = `INSERT INTO users (nome, email, senha) VALUES (?, ?, ?)`;
     const values = [nome, email, senhaCriptografada];
     
     connection.query(query, values, (error, results) => {
