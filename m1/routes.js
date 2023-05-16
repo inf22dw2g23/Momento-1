@@ -10,6 +10,7 @@ const partidaController = require('./controllers/partidaController');
 const authController = require('./controllers/authController');
 const swaggerController = require('./controllers/swaggerController');
 const callbackController = require('./controllers/callbackController');
+const dashboardController = require('./controllers/dashboardController');
 
 // Rotas para jogadorController
 router.get('/jogadores/count', jogadorController.countJogadores);
@@ -38,6 +39,8 @@ router.get('/auth/github/callback', passport.authenticate("github", { failureRed
 router.get('/me', auth, authController.me);
 router.get('/githubme', auth, authController.gitHubMe);
 
+//rota dashboard
+router.get('/dashboard', dashboardController);
 
 
 //rota callback

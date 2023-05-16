@@ -64,6 +64,18 @@ const callbackController = async (req, res) => {
             }
             });
 
+              // Exemplo de uso da variável tokenEndpoint
+            axios.post(tokenEndpoint, data)
+            .then(response => {
+              // Manipule a resposta do token endpoint
+              res.send(response.data);
+            })
+            .catch(error => {
+              // Manipule erros ao fazer a solicitação para o token endpoint
+              console.error(error);
+              res.status(500).send('Erro durante a troca de token');
+            });
+
           req.session.accessToken = accessToken;
   
           // Redirecione para a página principal ou para outra rota protegida
