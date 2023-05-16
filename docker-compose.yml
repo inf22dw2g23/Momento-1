@@ -10,15 +10,13 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 12345678
-    networks:
-      - movies-network
     ports:
       - 3300:3300
-  app:
+  m1:
     depends_on:
       - mysql
-    container_name: movies-app
-    image: movies-app1
+    container_name: node-docker-3
+    image: node-docker-2
     build:
       context: .
       dockerfile: ./dockerfile
@@ -26,8 +24,3 @@ services:
       NODE_ENV: production
     ports:
       - 3000:3000
-    networks:
-      - movies-network
-
-networks:
-  movies-network:
