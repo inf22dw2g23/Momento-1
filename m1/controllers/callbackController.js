@@ -32,7 +32,7 @@ const callbackController = async (req, res) => {
 
             // Middleware de sessão
             app.use(session({
-            secret: 'sua-chave-secreta-aqui',
+            secret: 'ebe8ae0d893965ee8b099e9baf9f9c7a0a51feb7612ecf85da125788ddf86865',
             resave: false,
             saveUninitialized: false
             }));
