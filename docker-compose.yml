@@ -1,5 +1,4 @@
 version: '3.7'
-
 services:
   mysql:
     container_name: node-docker-3
