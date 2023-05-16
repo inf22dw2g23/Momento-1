@@ -21,7 +21,7 @@ const callbackController = async (req, res) => {
           client_secret: clientSecret,
           redirect_uri: redirectUri
         });
-  
+
         // Verifique se a solicitação foi bem-sucedida e obtenha o token de acesso
         if (response.status === 200) {
           const accessToken = response.data.access_token;
