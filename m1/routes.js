@@ -9,8 +9,7 @@ const jogadorController = require('./controllers/jogadorController');
 const partidaController = require('./controllers/partidaController');
 const authController = require('./controllers/authController');
 const swaggerController = require('./controllers/swaggerController');
-
-
+const callbackController = require('./controllers/callbackController');
 
 // Rotas para jogadorController
 router.get('/jogadores/count', jogadorController.countJogadores);
