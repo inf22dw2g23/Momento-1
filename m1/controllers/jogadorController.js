@@ -1,60 +1,68 @@
-// jogadorController.js
+const sql = require("../utils/db");
 
-const Jogador = require('../src/models/Jogador');
-
-
-// Listar todos os jogadores
-exports.listarJogadores = (req, res) => {
-  Jogador.find()
-    .then(jogadores => res.json(jogadores))
-    .catch(err => res.status(500).json({ error: err.message }));
+const countJogadores = (req, res) => {
+  sql.query("SELECT COUNT(id) FROM jogador", function (err, result) {
+    if (err) throw err;
+    res.send(result);
+  });
 };
 
-// Obter um jogador pelo ID
-exports.obterJogador = (req, res) => {
-  const jogadorId = req.params.id;
-  Jogador.findById(jogadorId)
-    .then(jogador => {
-      if (!jogador) {
-        return res.status(404).json({ message: 'Jogador não encontrado' });
-      }
-      res.json(jogador);
-    })
-    .catch(err => res.status(500).json({ error: err.message }));
+const retrieveJogadores = (req, res) => {
+  sql.query("SELECT * FROM jogador", function (err, result) {
+    if (err) throw err;
+    res.send(result);
+  });
 };
 
-// Criar um novo jogador
-exports.criarJogador = (req, res) => {
-  const { nome, idade, posicao } = req.body;
-  const jogador = new Jogador({ nome, idade, posicao });
-  jogador.save()
-    .then(jogadorCriado => res.status(201).json(jogadorCriado))
-    .catch(err => res.status(500).json({ error: err.message }));
+const createJogador = (req, res) => {
+  sql.query(
+    "INSERT INTO jogador (name) VALUES (?)",
+    [req.body.name],
+    function (err, result) {
+      if (err) throw err;
+      res.send(req.body);
+    }
+  );
 };
 
-// Atualizar um jogador existente
-exports.atualizarJogador = (req, res) => {
-  const jogadorId = req.params.id;
-  const { nome, idade, posicao } = req.body;
-  Jogador.findByIdAndUpdate(jogadorId, { nome, idade, posicao }, { new: true })
-    .then(jogadorAtualizado => {
-      if (!jogadorAtualizado) {
-        return res.status(404).json({ message: 'Jogador não encontrado' });
-      }
-      res.json(jogadorAtualizado);
-    })
-    .catch(err => res.status(500).json({ error: err.message }));
+const retrieveJogador = (req, res) => {
+  sql.query(
+    "SELECT * FROM jogador WHERE id = ?",
+    [req.params.id],
+    function (err, result) {
+      if (err) throw err;
+      res.send(result);
+    }
+  );
 };
 
-// Excluir um jogador
-exports.excluirJogador = (req, res) => {
-  const jogadorId = req.params.id;
-  Jogador.findByIdAndRemove(jogadorId)
-    .then(jogadorRemovido => {
-      if (!jogadorRemovido) {
-        return res.status(404).json({ message: 'Jogador não encontrado' });
-      }
-      res.json({ message: 'Jogador removido com sucesso' });
-    })
-    .catch(err => res.status(500).json({ error: err.message }));
+const deleteJogador = (req, res) => {
+  sql.query(
+    "DELETE FROM jogador WHERE id = ?",
+    [req.params.id],
+    function (err, result) {
+      if (err) throw err;
+      res.send("Jogador " + req.params.id + " successfully deleted");
+    }
+  );
+};
+
+const updateJogador = (req, res) => {
+  sql.query(
+    "UPDATE jogador SET name = ? WHERE id = ?",
+    [req.body.name, req.params.id],
+    function (err, result) {
+      if (err) throw err;
+      res.send(req.body);
+    }
+  );
+};
+
+module.exports = {
+  countJogadores,
+  retrieveJogadores,
+  createJogador,
+  retrieveJogador,
+  updateJogador,
+  deleteJogador,
 };

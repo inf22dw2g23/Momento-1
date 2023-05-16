@@ -6,9 +6,13 @@ const passport = require('passport');
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const jwt = require('jsonwebtoken');
 const JwtStrategy = require('passport-jwt').Strategy;
-const jogadorController = require('./caminho-para-o-arquivo/jogadorController');
-const partidaController = require('./caminho-para-o-arquivo/partidaController');
+const jogadorController = require('./controllers/jogadorController');
+const partidaController = require('./controllers/partidaController');
+const authController = require('./controllers/authController');
+const swaggerController = require('./controllers/swaggerController');
 
+//rota para o swagger
+app.get('/swagger', swaggerController.swaggerDefinition);
 
 
 // Rotas para jogadores
@@ -31,6 +35,11 @@ const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: 'ebe8ae0d893965ee8b099e9baf9f9c7a0a51feb7612ecf85da125788ddf86865',
 };
+
+// Rota para abrir o arquivo SwaggerController.js
+router.get('/swagger',  swaggerController.showSwaggerController);
+
+
 // Configuração da estratégia JWT
 passport.use(
   new JwtStrategy(jwtOptions, (payload, done) => {

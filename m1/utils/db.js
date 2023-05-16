@@ -6,8 +6,8 @@ var connection = mysql.createConnection({
   //host: 'mysql',
   host: 'localhost',
   user: 'root',
-  password: 'web22023',
-  database: "plataforma_jogos_database"
+  password: '12345678',
+  database: "plataforma_jogos"
 });
 
 connection.connect(function (err) {
