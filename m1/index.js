@@ -5,6 +5,7 @@ const app = express();
 const routes = require('./routes');
 const config = require("./configs/env");
 
+
 // Middleware para processar dados JSON
 app.use(express.json());
 
@@ -14,9 +15,9 @@ app.post('/register', (req, res) => {
   
   // Retornar a resposta adequada
   if (nome && email && senha) {
-    res.status(200).json({ message: 'Registro realizado com sucesso!' });
+    res.status(200).json({ message: 'Registo realizado com sucesso!' });
   } else {
-    res.status(400).json({ message: 'Falha no registro. Verifique os dados fornecidos.' });
+    res.status(400).json({ message: 'Falha no registo. Verifique os dados fornecidos.' });
   }
 });
 
@@ -36,6 +37,14 @@ const ensureAuthenticated = (req, res, next) => {
   }
   res.redirect('/login');
 };
+
+//logout 
+
+app.get('/logout', (req, res) => {
+  req.logout(); // Essa função é fornecida pelo Passport para fazer o logout do usuário
+  res.redirect('/'); // Redirecione o usuário para a página inicial ou qualquer outra página desejada após o logout
+});
+
 
 // Rota protegida que requer autenticação
 app.get('/profile', ensureAuthenticated, (req, res) => {

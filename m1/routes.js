@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('./middleware/auth');
+const passport = require("passport");
 const isAuthenticated = require('./middleware/auth');
-const passport = require('./middleware/passport');
 
 
 const jogadorController = require('./controllers/jogadorController');
@@ -11,6 +11,7 @@ const authController = require('./controllers/authController');
 const swaggerController = require('./controllers/swaggerController');
 const callbackController = require('./controllers/callbackController');
 const dashboardController = require('./controllers/dashboardController');
+
 
 // Rotas para jogadorController
 router.get('/jogadores/count', jogadorController.countJogadores);
@@ -32,7 +33,7 @@ router.delete('/partidas/:id', partidaController.deletePartida);
 
 // Rotas de autenticação
 router.get('/login', authController.login);
-router.get('/logout', authController.logout);
+router.get("/logout", authController.logout);
 router.get('/', auth, authController.protected);
 router.get('/auth/github', passport.authenticate("github", { scope: ["user:email"] }), authController.authGitHub);
 router.get('/auth/github/callback', passport.authenticate("github", { failureRedirect: "/login" }), authController.authCallback);

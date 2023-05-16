@@ -7,13 +7,16 @@ const callbackController = async (req, res) => {
       if (authorizationCode) {
         const axios = require('axios');
         
-        // Defina as configurações para a solicitação HTTP POST
-        const clientId = '8149bd792fa6e752b682'; // ID do cliente registrado no servidor de autorização
-        const clientSecret = '4272e8874ae0bccbc3d1d637b71eb1a85e6d6834'; // Segredo do cliente registrado no servidor de autorização
-        const redirectUri = 'http://localhost:3000/callback'; // URI de redirecionamento registrada no servidor de autorização
-        const grantType = 'authorization_code'; // Tipo de concessão usado para trocar o código de autorização
-  
-        // Faça a solicitação para o endpoint de token do servidor de autorização
+
+        const tokenEndpoint = 'http://localhost:3000/github/token'; 
+
+
+        // Define as configurações para a solicitação HTTP POST
+        const clientId = '8149bd792fa6e752b682'; 
+        const clientSecret = '4272e8874ae0bccbc3d1d637b71eb1a85e6d6834'; 
+        const redirectUri = 'http://localhost:3000/callback'; 
+        const grantType = 'authorization_code';
+ 
         const response = await axios.post(tokenEndpoint, {
           grant_type: grantType,
           code: authorizationCode,
@@ -22,12 +25,10 @@ const callbackController = async (req, res) => {
           redirect_uri: redirectUri
         });
 
-        // Verifique se a solicitação foi bem-sucedida e obtenha o token de acesso
+        // Verifica se a solicitação foi bem-sucedida e retem o token de acesso
         if (response.status === 200) {
           const accessToken = response.data.access_token;
-  
-          // Faça algo com o token de acesso (por exemplo, armazene-o na sessão do usuário)
-
+ 
           const session = require('express-session');
 
             // Middleware de sessão
@@ -40,7 +41,6 @@ const callbackController = async (req, res) => {
             // Rota de callback
             app.get('/callback', async (req, res) => {
             try {
-                // Obtém o código de autorização do parâmetro da consulta na URL
                 const authorizationCode = req.query.code;
 
                 // Executa a lógica para trocar o código de autorização pelo token de acesso

@@ -8,14 +8,14 @@ const auth = function (req, res, next) {
 module.exports = auth;
 
 const isAuthenticated = (req, res, next) => {
-  // Verifica se o usuário está autenticado
+  // Verifica se o utilizador está autenticado
   if (req.user && req.isAuthenticated()) {
-    // Se o usuário estiver autenticado, permite o acesso à rota protegida
+    // Se o utilizador estiver autenticado, permite o acesso à rota protegida
     return next();
   }
   
-  // Se o usuário não estiver autenticado, redireciona para a página de login ou retorna um erro
-  res.redirect('/login'); // ou res.status(401).json({ error: 'Unauthorized' });
+  // Se o utilizador não estiver autenticado, redireciona para a página de login ou retorna um erro
+  res.redirect('/login'); 
 };
 
 

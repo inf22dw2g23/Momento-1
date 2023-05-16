@@ -5,13 +5,52 @@ const controllers = require('./controllers/controllers');
 const passport = require('passport');
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const jwt = require('jsonwebtoken');
+const session = require('express-session');
 const JwtStrategy = require('passport-jwt').Strategy;
 const jogadorController = require('./controllers/jogadorController');
 const partidaController = require('./controllers/partidaController');
 const authController = require('./controllers/authController');
 const swaggerController = require('./controllers/swaggerController');
+const dashboardController = require('./controllers/dashboardController');
 
 const port = 3000;
+
+// Configurar middleware de sessão
+app.use(session({
+  secret: 'ebe8ae0d893965ee8b099e9baf9f9c7a0a51feb7612ecf85da125788ddf86865',
+  resave: false,
+  saveUninitialized: false
+}));
+
+// Configurar Passport.js
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Definir estratégia de autenticação local
+passport.use(new LocalStrategy(
+
+  (name, password, done) => {
+    if (name === 'admin' && password === 'admin') {
+      return done(null, { id: 1, name: 'admin' });
+    } else {
+      return done(null, false);
+    }
+  }
+));
+
+// Serialização e deserialização do usuário
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  //Verifica o utilizador na bd com base no ID
+  const users = { id: 1, name: 'admin' };
+  done(null, users);
+});
+
+
+
 
 //rota para o swagger
 app.get('/swagger', swaggerController.swaggerDefinition);
@@ -40,6 +79,10 @@ const jwtOptions = {
 
 // Rota para abrir o arquivo SwaggerController.js
 router.get('/swagger',  swaggerController.showSwaggerController);
+
+
+//rota dashboard
+router.get('/dashboard', dashboardController);
 
 
 // Configuração da estratégia JWT

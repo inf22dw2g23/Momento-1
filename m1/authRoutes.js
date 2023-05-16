@@ -9,9 +9,6 @@ router.post('/register', async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Crie uma função para inserir os dados do usuário no banco de dados
-    // Certifique-se de fazer a devida validação dos dados antes de inserir
-
     // Exemplo de código usando o pacote mysql2 para inserir os dados no MySQL
     const hashedPassword = await bcrypt.hash(password, 10);
     const query = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)';
@@ -28,10 +25,6 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Crie uma função para verificar a existência do usuário no banco de dados
-    // e comparar as senhas
-
-    // Exemplo de código usando o pacote mysql2 para buscar os dados no MySQL
     const query = 'SELECT * FROM users WHERE email = ?';
     const [rows] = await db.query(query, [email]);
     const user = rows[0];

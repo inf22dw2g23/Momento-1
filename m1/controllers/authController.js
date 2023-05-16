@@ -14,11 +14,9 @@ const protected = (req, res) => {
     res.sendFile(path.join(__dirname, "..", "/public/protected.html"));
 };
 
-
 const dashboard = (req, res) => {
   res.sendFile(path.join(__dirname, "..", "/public/dashboard.html"));
 };
-
 
 const authGitHub = (req, res) => {};
 
@@ -44,4 +42,4 @@ const gitHubMe = (req, res) => {
       });
 };
 
-module.exports = {login, logout, protected, dashboard ,authGitHub, authCallback, me, gitHubMe};
+module.exports = { login, logout, protected, dashboard, authGitHub, authCallback, me, gitHubMe };
