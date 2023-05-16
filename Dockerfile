@@ -1,13 +1,9 @@
-FROM node
-
-WORKDIR /usr/src/app
-
-COPY package.json .
-
-RUN npm install
-
+FROM node:14
+ENV NODE_ENV=production
+WORKDIR /M1
 COPY . .
-
+RUN npm install --production -silent
+RUN chown -R node /M1
 EXPOSE 3000
-
-CMD ["node", "index.js"]
+USER node
+CMD ["npm", "start"]
