@@ -18,4 +18,5 @@ const isAuthenticated = (req, res, next) => {
   res.redirect('/login'); // ou res.status(401).json({ error: 'Unauthorized' });
 };
 
+
 module.exports = isAuthenticated;

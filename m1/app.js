@@ -11,6 +11,8 @@ const partidaController = require('./controllers/partidaController');
 const authController = require('./controllers/authController');
 const swaggerController = require('./controllers/swaggerController');
 
+const port = 3000;
+
 //rota para o swagger
 app.get('/swagger', swaggerController.swaggerDefinition);
 

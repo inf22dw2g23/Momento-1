@@ -38,6 +38,8 @@ router.get('/auth/github/callback', passport.authenticate("github", { failureRed
 router.get('/me', auth, authController.me);
 router.get('/githubme', auth, authController.gitHubMe);
 
+
+
 //rota callback
 router.get('/callback', callbackController);
 
