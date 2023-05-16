@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('./middleware/auth');
+const isAuthenticated = require('./middleware/auth');
 const passport = require('./middleware/passport');
 
 
@@ -41,6 +42,10 @@ router.get('/githubme', auth, authController.gitHubMe);
 // Rota para abrir o arquivo SwaggerController.js
 router.get('/swagger', swaggerController.showSwaggerController);
 
-
+// Rota protegida que requer autenticação
+router.get('/', isAuthenticated, (req, res) => {
+    // Lógica da rota protegida
+    res.send('Esta é uma rota protegida');
+  });
 
 module.exports = router;
